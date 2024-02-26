@@ -1,0 +1,122 @@
+label {
+    width: 100%;
+    display: inline-block;
+}
+
+strong {
+    color: #5AB7A9;
+}
+.valid {
+    -webkit-appearance: none;
+    box-sizing: border-box;
+    transition: background-color .3s ease-in, border-color .3s ease-in, color .3s ease-in;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    background-color: #1CA594;
+    border: 1px solid #1CA594;
+    color: #f7f8f8;
+    cursor: pointer;
+    display: inline-block;
+    font-family: inherit;
+    margin: 1em 0;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.search_section {
+    max-width: 90%;
+    width: calc(100% - 4rem);
+    padding: 10px;
+    border: 1px dotted #1CA594;
+    border-radius: 10px;
+    margin: auto;
+    background-color: #fff;
+}
+
+.search_item {
+    display: inline-block;
+    vertical-align: top;
+    border-left: 1px dotted #1CA594;
+    padding: 10px;
+}
+
+.search_select select {
+    width: 95%;
+    border-left: 1px dotted #1CA594;
+    padding: 10px;
+}
+
+.search_input input {
+    width: 55%;
+    border-left: 1px dotted #1CA594;
+    padding: 10px!important;
+}
+.search_input select {
+    width: 35%;
+    padding: 10px!important;
+}
+
+input:invalid {
+    border: 1px solid #b62525!important;
+}
+input:invalid:focus {
+    border: 1px solid #b62525!important;
+}
+
+.result_item {
+    width: 100%;
+    border: 1px solid #1CA594;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+}
+
+
+.result_left_column {
+    padding-top: 10px;
+    width: 49%;
+    padding-right: 10px;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.result_right_column {
+    padding-top: 10px;
+    width: 49%;
+    border-left: 1px solid #c0c0c0;
+    padding-left: 15px;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.et_pb_section_0_tb_header {
+    position: fixed;
+    width: 100%;
+    z-index: 5;
+}
+
+
+@media (min-width: 1024px) {
+    .search_checkbox {
+        width: 24%;
+    }
+    .search_select {
+        width: 49%;
+    }
+}
+
+@media (max-width: 1023px) {
+    .search_checkbox {
+        width: 100%;
+    }
+    .search_select {
+        width: 100%;
+    }
+
+    .result_right_column, .result_left_column {
+        width: 100%;
+    }
+
+}

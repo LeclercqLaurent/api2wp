@@ -1,0 +1,68 @@
+<section class='search_section'>
+    <h2>Votre recherche </h2>
+    <p id='display_link' {% if get.go is not defined %}style="display: none"{% endif %}>
+        <a onclick='showForm()' style='cursor: pointer;' >Afficher le formulaire</a>
+    </p>
+    <form method='GET' id='search_engine' action='{{ form_url }}' {% if get.go is defined %}style="display: none"{% endif %}>
+        <input type='hidden' name='go' value='1' />
+        {% for section in sections %}
+        {% set input_type = attribute(settings.input_type, section.label) %}
+
+        {% if 'checkbox' == input_type %}
+        <div class='search_item search_checkbox' >
+        <strong>{{ attribute(settings.titles, section.label) }}</strong>
+        {% for option in section.options %}
+        <label>
+            <input type='checkbox' id='{{ section.label }}{{ option.id }}' name='{{ section.label }}[]' value='{{ option.id }}'
+            {% if attribute(get, section.label) is defined and option.id in attribute(get, section.label) %}checked{% endif %}
+            > {{ option.value }}
+        </label>
+        {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if 'select' == input_type %}
+        <div class='search_item search_select' >
+            <strong>{{ attribute(settings.titles, section.label) }}</strong>
+            <label for='{{ section.label }}'></label>
+            <select id='{{ section.label }}' name='{{ section.label }}'>
+                <option>-</option>
+                {% for option in section.options %}
+                <option id="{{ section.label }}{{ option.id }}" value="{{ option.id }}"
+                {% if attribute(get, section.label) is defined and option.id == attribute(get, section.label) %}
+                selected{% endif %}>{{ option.value }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        {% endif %}
+
+        {% if 'postCode' == input_type %}
+        <div class='search_item search_input' >
+            <div>
+                <strong>{{ attribute(settings.titles, section.label) }}</strong>
+            </div>
+            <div>
+                <label for='{{ section.label }}'></label>
+                <input type="text" minlength="5" maxlength="5" id='{{ section.label }}' name='{{ section.label }}' value="{{ get.postCode ?? null }}" />
+                <select id="distance" name='distance'>
+                    <option value="10" {% if get.distance == 10 %}selected{% endif %}>à 10 km</option>
+                    <option value="25" {% if get.distance == 25 %}selected{% endif %}>à 25 km</option>
+                    <option value="50" {% if get.distance == 50 %}selected{% endif %}>à 50 km</option>
+                    <option value="100" {% if get.distance == 100 %}selected{% endif %}>à 100 km</option>
+                </select>
+            </div>
+        </div>
+        {% endif %}
+
+        {% endfor %}
+        <div style='width:100%; text-align:center'>
+            <input type='submit' class='valid' value ='Rechercher'>
+        </div>
+    </form>
+</section>
+<script>
+    function showForm() {
+        document.getElementById('search_engine').style.display = 'block';
+        document.getElementById('display_link').style.display  = 'none';
+    }
+</script>

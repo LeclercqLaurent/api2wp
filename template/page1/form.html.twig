@@ -1,0 +1,30 @@
+<section class='search_section'>
+    <h2>Votre recherche </h2>
+    <p id='display_link' {% if get.go is not defined %}style="display: none"{% endif %}>
+        <a onclick='showForm()' style='cursor: pointer;' >Afficher le formulaire</a>
+    </p>
+    <form method='GET' id='search_engine' action='{{ form_url }}' {% if get.go is defined %}style="display: none"{% endif %}>
+        <input type='hidden' name='go' value='1' />
+        {% for section in sections %}
+        <div class='search_item search_checkbox' >
+            <strong>{{ attribute(settings.titles, section.label) }}</strong>
+            {% for option in section.options %}
+            <label>
+                <input type='checkbox' id='{{ section.label }}{{ option.id }}' name='{{ section.label }}[]' value='{{ option.id }}'
+                {% if attribute(get, section.label) is defined and option.id in attribute(get, section.label) %}checked{% endif %}
+                > {{ option.value }}
+            </label>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <div style='width:100%; text-align:center'>
+            <input type='submit' class='valid' value ='Rechercher'>
+        </div>
+    </form>
+</section>
+<script>
+    function showForm() {
+        document.getElementById('search_engine').style.display = 'block';
+        document.getElementById('display_link').style.display  = 'none';
+    }
+</script>

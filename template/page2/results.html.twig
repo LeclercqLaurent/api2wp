@@ -1,0 +1,80 @@
+<section id="results">
+    <div>
+        <strong>
+            {% if results|length == 0 %}Il n'y a aucun résultat disponible.
+            {% elseif results|length == 1 %}
+                Il y a <span
+                    style='font-size:2em;color:#000; margin:10px;padding:5px;'>{{ results|length }}</span> résultat :
+            {% else %}
+                Il y a <span
+                    style='font-size:2em;color:#000; margin:10px;padding:5px;'>{{ results|length }}</span> résultats :
+            {% endif %}
+        </strong>
+    </div>
+    {% for result in results %}
+        <article class='result_item'>
+            <h3><strong>{{ result.title }}</strong></h3>
+            <p><em>{{ result.department }}</em></p>
+            <p>{{ result.description|raw }}</p>
+            <hr style='width:60%'/>
+            <div class='result_left_column'>
+                {% if result.structureType|length > 0 %}
+                    <p><span style='font-weight:bolder'>Type de structure : </span>{{ result.structureType }}</p>
+                {% endif %}
+                {% if result.receptionTerms|length > 0 %}
+                    <p>
+                        <span style='font-weight:bolder'>Modalités d'accueil : </span>
+                        {{ result.receptionTerms|join('<strong>|</strong>')|raw }}
+                    </p>
+                {% endif %}
+                {% if result.works|length > 0 %}
+                    <p>
+                        <span style='font-weight:bolder'>Profil concerné : </span>{{ result.works|join('<strong>|</strong>')|raw }}
+                    </p>
+                {% endif %}
+                {% if result.ages|length > 0 %}
+                    <p>
+                        <span style='font-weight:bolder'>Classe d'age : </span>{{ result.ages|join('<strong>|</strong>')|raw }}
+                    </p>
+                {% endif %}
+                {% if result.specialities|length > 0 %}
+                    <p>
+                        <span style='font-weight:bolder'>Spécialités : </span>{{ result.specialities|join('<strong>|</strong>')|raw }}
+                    </p>
+                {% endif %}
+            </div>
+            <div class='result_right_column'>
+                {% if result.places is not empty %}
+                    <div><strong>Coordonnées</strong></div>{% endif %}
+                    {% if result.establishment|length > 0 %}
+                        <p>{{ result.establishment }}</p>
+                    {% endif %}
+                {% for place in result.places %}
+                    <div>
+                        <strong style='color:#000;'>{% if "" != place.label %} - {{ place.label }}{% endif %}</strong>
+                        <div>{{ place.streetNumber }} {{ place.street }}</div>
+                        <div>{{ place.additionalAddress }}</div>
+                        <div>{{ place.postCode }} {{ place.city }}</div>
+                        {% for contact in place.contacts %}
+                            {% if contact.type == 'phone' %}
+                                <div>
+                                    <a href='tel:{{ contact.value|replace({" ":""}) }}'
+                                       target='_blank'>{{ contact.value }}</a>
+                                </div>
+                            {% elseif contact.type == 'email' %}
+                                <div>
+                                    <a href='mailto:{{ contact.value }}' target='_blank'>{{ contact.value }}</a>
+                                </div>
+                            {% elseif contact.type == 'site_url' or contact.type == 'forum_url' %}
+                                <div>
+                                    <a href='{% if not (contact.value starts with 'http') %}https://{% endif %}{{ contact.value }}'
+                                       target='_blank'>{{ contact.value }}</a>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </article>
+    {% endfor %}
+</section>

@@ -1,0 +1,25 @@
+{
+  "authors": [
+    {
+      "name": "Laurent LECLERCQ",
+      "email": "laurent@codeam.fr",
+      "homepage": "https://www.codeam.fr",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "ext-curl": "*",
+    "ext-json": "*",
+    "twig/twig": "3.0"
+  },
+  "config": {
+    "platform": {
+      "php": "7.4"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  }
+}
